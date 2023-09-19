@@ -1,0 +1,13 @@
+
+  {
+    "name": "thetower2",
+    "version": "1.0.0",
+    "scripts": {
+      "build": "npm run setup:server",
+      "setup:app": "npm run setup:server && npm run setup:client",
+      "setup:client": "cd theTower2.client && npm i",
+      "setup:server": "cd theTower2 && npm i",
+      "start": "node theTower2/index.js"
+    }
+  }
+  
