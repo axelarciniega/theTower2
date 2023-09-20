@@ -25,6 +25,11 @@ EventSchema.virtual('creator', {
     justOne: true
 })
 
-//TODO The Ticket count will go here?
 
 
+EventSchema.virtual('ticketCount', {
+    localField: '_id',
+    foreignField: 'eventId',
+    ref: 'Ticket',
+    count: true
+})
