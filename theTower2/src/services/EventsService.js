@@ -1,9 +1,10 @@
 import { dbContext } from "../db/DbContext.js"
-import { BadRequest } from "../utils/Errors.js"
+import { BadRequest, Forbidden } from "../utils/Errors.js"
 
 
 
 class EventsService{
+  
     
     async createEvent(eventBody) {
         const event = await dbContext.Events.create(eventBody)
@@ -27,6 +28,9 @@ class EventsService{
     async editEvent(eventId, updates) {
         const originalEvent = await dbContext.Events.findById(eventId)
         if(!originalEvent) throw new Error(`unable to find event at ${eventId}`)
+        if(originalEvent.isCanceled == true){
+            throw new BadRequest('Sorry this event is already canceled')
+        }
 
         originalEvent.name = updates.name || originalEvent.name
         originalEvent.description = updates.description || originalEvent.description
@@ -35,7 +39,7 @@ class EventsService{
         originalEvent.capacity = updates.capacity || originalEvent.capacity
         originalEvent.startDate = updates.startDate || originalEvent.startDate
         originalEvent.type = updates.type || originalEvent.type
-        
+
         
 
         await originalEvent.save()
@@ -43,7 +47,13 @@ class EventsService{
        
     }
 
-
+    async cancelEvent(eventId, userId) {
+        const event = await this.getEventById(eventId)
+        if(event.creatorId != userId) throw new BadRequest('Not going to happen!')
+        event.isCanceled = true
+    await event.save()
+    return event
+    }
 
 }
 

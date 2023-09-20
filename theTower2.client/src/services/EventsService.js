@@ -1,5 +1,5 @@
 import { AppState } from "../AppState"
-import { Event } from "../models/Event"
+import { Event } from "../models/TowerEvent"
 import { logger } from "../utils/Logger"
 import { api } from "./AxiosService"
 
