@@ -14,7 +14,7 @@ constructor(){
     async createTicket(req,res,next){
         try {
             const ticketBody = req.body
-            ticketBody.creatorId = req.userInfo.id
+            ticketBody.accountId = req.userInfo.id
             const ticket = await ticketsService.createTicket(ticketBody)
             res.send(ticket)
         } catch (error) {
