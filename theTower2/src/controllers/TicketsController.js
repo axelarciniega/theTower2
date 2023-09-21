@@ -9,6 +9,7 @@ constructor(){
     this.router
     .use(Auth0Provider.getAuthorizedUserInfo)
     .post('', this.createTicket)
+    .delete('/:ticketId', this.removeTicket)
 }
 
     async createTicket(req,res,next){
@@ -16,6 +17,16 @@ constructor(){
             const ticketBody = req.body
             ticketBody.accountId = req.userInfo.id
             const ticket = await ticketsService.createTicket(ticketBody)
+            res.send(ticket)
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    async removeTicket(req,res,next){
+        try {
+
+            const ticket = await ticketsService.removeTicket(req.params.ticketId, req.userInfo.id)
             res.send(ticket)
         } catch (error) {
             next(error)
