@@ -26,6 +26,7 @@
          <div class="col-12 col-md-4 my-3">
             <input v-model="eventData.startDate" type="date" placeholder="start date" class="form-control" required>
         </div>
+        
         <div class="col-12 col-md-4 my-3">
             <select v-model="eventData.type" class="form-control"  id="event-category" required>
                 <option disabled selected value="">Please select a category</option>
