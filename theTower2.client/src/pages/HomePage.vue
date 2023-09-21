@@ -1,25 +1,46 @@
 <template>
-  <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    <div class="home-card p-5 bg-white rounded elevation-3">
-      <img src="https://bcw.blob.core.windows.net/public/img/8600856373152463" alt="CodeWorks Logo"
-        class="rounded-circle">
-      <h1 class="my-5 bg-dark text-white p-3 rounded text-center">
-        Vue 3 Starter
-      </h1>
-    </div>
+  <div class="container">
+
+
+
+    <!-- STUB Filter Bar -->
+    <section class="row justify-content-between mt-5">
+        <button class="col-12 col-md-2" @click="filterBy=''">All</button>
+        <button class="col-12 col-md-2" @click="filterBy='sport'">Sports</button>
+        <button class="col-12 col-md-2" @click="filterBy='convention'">convention</button>
+        <button class="col-12 col-md-2" @click="filterBy='concert'">Concert</button>
+        <button class="col-12 col-md-2" @click="filterBy='digital'">Digital</button>
+    </section>
+
+    <!-- STUB Event cards -->
+    <section class="row g-4 mt-4">
+      <h1 class="justify-content-center d-flex">Events🪩</h1>
+      <div v-for="e in events" :key="e.id" class="col-12 col-md-3">
+         <EventCard :event="e"/>
+      </div>
+    </section>
+
+
+
+
+
+
   </div>
 </template>
 
 <script>
-import { onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import Pop from '../utils/Pop';
 import { eventsService } from '../services/EventsService';
+import {AppState} from '../AppState.js'
+
 
 export default {
   setup() {
     onMounted(() => {
       getEvents()
     })
+    const filterBy = ref('')
     async function getEvents(){
       try {
         await eventsService.getEvents()
@@ -27,12 +48,24 @@ export default {
         Pop.error(error)
       }
     }
-    return {}
+    return {
+      filterBy,
+      events: computed(() => {
+        if(!filterBy.value){
+          return AppState.towerEvents
+        }else{
+          return AppState.towerEvents.filter(event => event.type == filterBy.value)
+        }
+      })
+    }
   }
 }
 </script>
 
 <style scoped lang="scss">
+
+
+
 .home {
   display: grid;
   height: 80vh;
