@@ -1,6 +1,18 @@
 <template>
   <div class="container">
 
+    <!-- STUB Create event form -->
+    <section class="row">
+     <EventForm/>
+    </section>
+
+
+    <!-- STUB My Events -->
+    <section class="row">
+      <div></div>
+    </section>
+
+
 
 
     <!-- STUB Filter Bar -->

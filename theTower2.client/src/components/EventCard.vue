@@ -1,10 +1,10 @@
 <template>
     <router-link :to="{path: `events/${event.id}`}">
 
-        <div class="selectable card elevation-5 cover-image">
+        <div class="selectable card elevation-5">
             <p class="text-center">{{ event.name }}</p>
             
-            <img :src="event.coverImg" alt="">
+            <img class="cover-image" :src="event.coverImg" alt="">
         </div>
     </router-link>
 
@@ -25,10 +25,14 @@ setup() {
 };
 </script>
 
-
 <style>
 
 
+.cover-image{
+    height: 20vh;
+    object-fit: cover;
+    object-position: center;
+}
 
 
 </style>
