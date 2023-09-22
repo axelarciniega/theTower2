@@ -7,6 +7,16 @@
     </section>
 
 
+    <!-- STUB Events that I have tickets for  -->
+    <section class="row">
+        <h3>Event's I am going to🕶️</h3>
+      
+      <div v-for="t in myTickets" :key="t.id" class="col-12 col-md-2">
+        <EventCard :event="t.event"/>
+      </div>
+    </section>
+
+
     <!-- STUB My Events -->
     <section class="row">
       <div></div>
@@ -62,6 +72,7 @@ export default {
     }
     return {
       filterBy,
+      myTickets: computed(()=> AppState.myTickets),
       events: computed(() => {
         if(!filterBy.value){
           return AppState.towerEvents

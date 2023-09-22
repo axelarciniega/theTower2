@@ -7,10 +7,23 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, onMounted, watchEffect } from 'vue';
 import { AppState } from '../AppState';
+import Pop from '../utils/Pop';
+import { accountService } from '../services/AccountService';
 export default {
   setup() {
+    onMounted(()=> {
+      getMyTickets()
+    })
+
+    async function getMyTickets(){
+      try {
+        await accountService.getMyTickets()
+      } catch (error) {
+        Pop.error(error)
+      }
+    }
     return {
       account: computed(() => AppState.account)
     }

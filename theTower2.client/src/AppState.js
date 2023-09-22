@@ -13,8 +13,12 @@ towerEvents: [],
 activeEvent: null,
 
 
-/**@type {Tickets} */
-activeTickets: []
+/**@type {Tickets[]} */
+tickets: [],
 
+/**@type {Tickets[]} */
+myTickets: [],
 
+/**@type {Comment[]} */
+comments: []
 })
