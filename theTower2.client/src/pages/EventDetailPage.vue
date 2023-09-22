@@ -30,6 +30,7 @@
                                <p v-if="event.isCanceled == true">Event is canceled</p>
                             </div>
                             <div class="mt-5 col-12 col-md-3">
+                                <!-- FIXME also need to consider a sold out scenario, compare capacity and ticket count -->
                                 <div v-if="event.isCanceled == false">
                                         <button v-if="!isAttending && user.isAuthenticated" @click="createTicket">
                                     Attend
@@ -78,26 +79,27 @@
 import { useRoute } from 'vue-router';
 import { eventsService } from '../services/EventsService';
 import Pop from '../utils/Pop';
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { AppState } from '../AppState';
 import { ticketsService } from '../services/TicketsService';
 import { commentsService } from '../services/CommentsService';
+
 
 
 export default {
 setup() {
     onMounted(()=> {
         getEventById()
-        // getCommentByEvent()
+        getCommentByEvent()
     })
     const route = useRoute()
-//     async function getCommentByEvent(){
-//         try {
-//             await commentsService.getCommentByEvent(route.params.ticketId)
-//         } catch (error) {
-//             Pop.error(error)
-//         }
-// }
+    async function getCommentByEvent(){
+        try {
+            await commentsService.getCommentByEvent(route.params.eventId)
+        } catch (error) {
+            Pop.error(error)
+        }
+}
     async function getEventById(){
         try {
             await eventsService.getEventById(route.params.eventId)
@@ -114,7 +116,10 @@ setup() {
     isAttending: computed(() => AppState.tickets.find(a => a.accountId == AppState.account.id)),
     account: computed(()=> AppState.account),
     tickets: computed(()=> AppState.tickets),
-    comments: computed(() => AppState.comments),
+    comments: computed(() => AppState.eventComments),
+
+   
+
 
     async createTicket(){
         try {

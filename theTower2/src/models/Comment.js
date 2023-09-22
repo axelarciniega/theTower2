@@ -16,3 +16,10 @@ foreignField: '_id',
 ref: 'Account',
 justOne: true
 })
+
+CommentSchema.virtual('event', {
+    localField: 'eventId',
+    foreignField: 'event',
+    ref: 'Event',
+    justOne: true
+})

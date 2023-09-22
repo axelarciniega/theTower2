@@ -25,13 +25,13 @@ class EventsService{
 } 
 
 
-    async editEvent(eventId, updates) {
+    async editEvent(eventId, updates,userId) {
         const originalEvent = await dbContext.Events.findById(eventId)
         if(!originalEvent) throw new Error(`unable to find event at ${eventId}`)
         if(originalEvent.isCanceled == true){
             throw new BadRequest('Sorry this event is already canceled')
         }
-        if(originalEvent.creatorId != updates.creatorId) throw new BadRequest('Not going to happen!')
+        if(originalEvent.creatorId != originalEvent.creatorId) throw new BadRequest('Not going to happen!')
 
         originalEvent.name = updates.name || originalEvent.name
         originalEvent.description = updates.description || originalEvent.description

@@ -1,7 +1,7 @@
 
 
 
-export class Comment{
+export class EventComment{
     constructor(data){
         this.id = data.id
         this.creatorId = data.creatorId

@@ -12,7 +12,7 @@ class CommentsService{
     }
     
     async getComments(eventId) {
-        const comment = await dbContext.Comment.find({eventId}).populate('creator')
+        const comment = await dbContext.Comment.find({eventId}).populate('creator event')
         return comment
 
         
