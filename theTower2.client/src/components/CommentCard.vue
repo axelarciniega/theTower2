@@ -4,7 +4,7 @@
 
 <!-- STUB will show who is going -->
     <section class="row">
-        guest
+        people will go here
     </section>
 
 <!-- STUB create comment form -->

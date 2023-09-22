@@ -66,9 +66,9 @@
 
         <!-- STUB Comment section -->
         <section class="row">
-            <div v-for="c in comments" :key="c.id">
+            <!-- <div v-for="c in comments" :key="c.id"> -->
                 <CommentCard :comments="c"/>
-            </div>
+            <!-- </div> -->
         </section>
 
 
