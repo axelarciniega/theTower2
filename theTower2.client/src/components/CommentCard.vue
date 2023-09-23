@@ -1,69 +1,55 @@
 <template>
-    
-<div class="container">
+    <div v-if="eventComment">
 
-<!-- STUB will show who is going -->
-    <section class="row">
-        people will go here
-    </section>
-
-<!-- STUB create comment form -->
-    <section class="row">
-        <div class="col-12">
-            <h3>Talk with others that are going!</h3>
+        <div class="container">
+            <section class="row">
+                <div class="m-1 col-12 col-md-1">
+                    <img class="profile-pic" :src="eventComment.creator?.picture" alt="">
+                </div>
+                <div class="card elevation-5 col-12 col-md-6 my-2">
+                    <b> {{ eventComment.creator?.name }}</b>
+                    <p>{{ eventComment.body }}</p>
+                    <div v-if="account.id == eventComment.creatorId">
+                        <button @click="removeComments"  class="col-2">delete</button>
+                    </div>
+                    <div v-else></div>
+                </div>
+            </section>
         </div>
-        <form @submit.prevent="createComment">
-        <div>
-            <textarea  name="Comment" id="" cols="50" required placeholder="Comments" rows="5" v-model="comment.body"></textarea>
-        </div>
-        <div class="col-12">
-            <button>Post</button>
-        </div>
-    </form>
-        
-    </section>
-
-
-
-
-
-
-
-
-
-
-
-</div>
+    </div>
 
 
 </template>
 
 <script>
-import { computed, ref } from 'vue';
-import { commentsService } from '../services/CommentsService';
-import Pop from '../utils/Pop';
-import { useRoute } from 'vue-router';
+import { computed } from 'vue';
+import { EventComment } from '../models/EventComment';
 import { AppState } from '../AppState';
-import { logger } from '../utils/Logger';
-
-
+import Pop from '../utils/Pop';
+import { commentsService } from '../services/CommentsService';
 
 export default {
-setup() {
-        const route = useRoute()
-        const comment = ref({})
+    props: {eventComment: {type: Object, required: true}},
 
+
+setup(props) {
   return {
-    comment,
-    comments: computed(()=> AppState.eventComments),
-     async createComment(){
+    account: computed(()=> AppState.account),
+    user: computed(()=> AppState.user),
+
+    async removeComments(){
         try {
-            comment.value.eventId = route.params.eventId
-        await commentsService.createComment(comment.value)
+            if(await Pop.confirm()){
+                await commentsService.removeComments(props.eventComment.id)
+                Pop.success('Removed Comment')
+
+            }
         } catch (error) {
             Pop.error(error)
         }
     }
+
+
   };
 },
 };
@@ -71,4 +57,11 @@ setup() {
 
 
 <style>
+
+.profile-pic{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
 </style>

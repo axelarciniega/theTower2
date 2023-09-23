@@ -66,9 +66,12 @@
 
         <!-- STUB Comment section -->
         <section class="row">
-            <!-- <div v-for="c in comments" :key="c.id"> -->
-                <CommentCard :comments="c"/>
-            <!-- </div> -->
+            <CommentForm/>
+            
+            <div class="my-2" v-for="comment in eventComments" :key="comment.id">
+                <CommentCard :eventComment="comment"/>
+            </div>
+            
         </section>
 
 
@@ -79,7 +82,7 @@
 import { useRoute } from 'vue-router';
 import { eventsService } from '../services/EventsService';
 import Pop from '../utils/Pop';
-import { computed, onMounted, ref } from 'vue';
+import { Comment, computed, onMounted, ref } from 'vue';
 import { AppState } from '../AppState';
 import { ticketsService } from '../services/TicketsService';
 import { commentsService } from '../services/CommentsService';
@@ -87,82 +90,74 @@ import { commentsService } from '../services/CommentsService';
 
 
 export default {
-setup() {
-    onMounted(()=> {
-        getEventById()
-        getCommentByEvent()
-    })
-    const route = useRoute()
-    async function getCommentByEvent(){
-        try {
-            await commentsService.getCommentByEvent(route.params.eventId)
-        } catch (error) {
-            Pop.error(error)
-        }
-}
-    async function getEventById(){
-        try {
-            await eventsService.getEventById(route.params.eventId)
-        } catch (error) {
-            Pop.error(error)
-        }
-    }
-
-
-
-  return {
-    event: computed(() => AppState.activeEvent ),
-    user: computed(()=> AppState.user),
-    isAttending: computed(() => AppState.tickets.find(a => a.accountId == AppState.account.id)),
-    account: computed(()=> AppState.account),
-    tickets: computed(()=> AppState.tickets),
-    comments: computed(() => AppState.eventComments),
-
-   
-
-
-    async createTicket(){
-        try {
-            if(AppState.activeEvent.capacity == 0 || AppState.activeEvent.isCanceled == true){
-                Pop.toast('This event is not available', 'danger')
+    setup() {
+        onMounted(() => {
+            getEventById();
+            getCommentByEvent();
+        });
+        const route = useRoute();
+        
+        async function getCommentByEvent() {
+            try {
+                await commentsService.getCommentByEvent(route.params.eventId);
             }
-            
-            let ticketData = {eventId: route.params.eventId}
-            await ticketsService.createTicket(ticketData)
-            AppState.activeEvent.capacity--
-            Pop.success('Congrats, you got the ticket!')
-
-
-        } catch (error) {
-            Pop.error(error)
-        }
-    },
-
-    async returnTicket(){
-        try {
-            let ticket = AppState.tickets.find(t => t.accountId == AppState.account.id)
-            await ticketsService.returnTicket(ticket.id)
-            AppState.activeEvent.capacity++
-            Pop.success('Returned Ticket👍')
-        } catch (error) {
-            Pop.error(error)
-        }
-    },
-
-
-    async cancelEvent(){
-        try {
-            if( await Pop.confirm()){
-                await eventsService.cancelEvent(route.params.eventId)
-                Pop.toast('Canceled Event :(')
+            catch (error) {
+                Pop.error(error);
             }
-        } catch (error) {
-            Pop.error(error)
         }
-    }
-
-  };
-},
+        async function getEventById() {
+            try {
+                await eventsService.getEventById(route.params.eventId);
+            }
+            catch (error) {
+                Pop.error(error);
+            }
+        }
+        return {
+            event: computed(() => AppState.activeEvent),
+            user: computed(() => AppState.user),
+            isAttending: computed(() => AppState.tickets.find(a => a.accountId == AppState.account.id)),
+            account: computed(() => AppState.account),
+            tickets: computed(() => AppState.tickets),
+            eventComments: computed(() => AppState.eventComments),
+            async createTicket() {
+                try {
+                    if (AppState.activeEvent.capacity == 0 || AppState.activeEvent.isCanceled == true) {
+                        Pop.toast('This event is not available', 'danger');
+                    }
+                    let ticketData = { eventId: route.params.eventId };
+                    await ticketsService.createTicket(ticketData);
+                    AppState.activeEvent.capacity--;
+                    Pop.success('Congrats, you got the ticket!');
+                }
+                catch (error) {
+                    Pop.error(error);
+                }
+            },
+            async returnTicket() {
+                try {
+                    let ticket = AppState.tickets.find(t => t.accountId == AppState.account.id);
+                    await ticketsService.returnTicket(ticket.id);
+                    AppState.activeEvent.capacity++;
+                    Pop.success('Returned Ticket👍');
+                }
+                catch (error) {
+                    Pop.error(error);
+                }
+            },
+            async cancelEvent() {
+                try {
+                    if (await Pop.confirm()) {
+                        await eventsService.cancelEvent(route.params.eventId);
+                        Pop.toast('Canceled Event :(');
+                    }
+                }
+                catch (error) {
+                    Pop.error(error);
+                }
+            }
+        };
+    },
 };
 </script>
 

@@ -18,7 +18,7 @@ class CommentsService{
     async getCommentByEvent(eventId){
         const res= await api.get(`api/events/${eventId}/comments`)
         logger.log('getting comments by eventID',res.data)
-        AppState.eventComments = new EventComment(res.data)
+        AppState.eventComments = res.data
 
     }
 
