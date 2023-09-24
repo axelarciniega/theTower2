@@ -43,7 +43,11 @@
                                         </button>
                                 
                                 </div>
-                                <div v-else></div>
+                                <div v-else-if="event.capacity == 0">
+                                    <div>
+                                        <b>Sold out</b>
+                                    </div>
+                                </div>
                                 
                                 
                             </div>
@@ -75,7 +79,7 @@
 
 
         <!-- STUB Comment section -->
-        <section class="row">
+        <section  class="row">
             <CommentForm/>
             
             <div class="my-2" v-for="comment in eventComments" :key="comment.id">
@@ -146,7 +150,6 @@ export default {
                     
                     let ticketData = { eventId: route.params.eventId };
                     await ticketsService.createTicket(ticketData);
-                    AppState.activeEvent.capacity--;
                     Pop.success('Congrats, you got the ticket!');
                 }
                 catch (error) {
@@ -157,7 +160,6 @@ export default {
                 try {
                     let ticket = AppState.tickets.find(t => t.accountId == AppState.account.id);
                     await ticketsService.returnTicket(ticket.id);
-                    AppState.activeEvent.capacity++;
                     Pop.success('Returned Ticket👍');
                 }
                 catch (error) {
