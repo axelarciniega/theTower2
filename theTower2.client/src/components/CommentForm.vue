@@ -7,14 +7,14 @@
 <!-- STUB create comment form -->
     <section class="row">
         <div class="col-12">
-            <h3>Talk with others that are going!</h3>
+            <h3 class="text-white">Talk with others that are going!</h3>
         </div>
         <form @submit.prevent="createComment">
         <div>
             <textarea  name="Comment" id="" cols="50" required placeholder="Comments" rows="5" v-model="comment.body"></textarea>
         </div>
         <div class="col-12">
-            <button>Post</button>
+            <button class="button-post">Post</button>
         </div>
     </form>
         
@@ -72,4 +72,11 @@ setup() {
 
 
 <style>
+.button-post{
+    display: inline-block;
+    background: linear-gradient(80deg, #0add8f, #c4e8cb);
+    color: black;
+    border-radius: 5px;
+    cursor: pointer;
+}
 </style>

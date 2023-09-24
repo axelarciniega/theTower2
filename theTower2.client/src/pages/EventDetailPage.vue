@@ -3,7 +3,7 @@
         <section class="row">
 
             <!-- STUB Event Details -->
-            <section v-if="event" class="row elevation-5 mt-4">
+            <section v-if="event" class="row elevation-5 mt-4 text-white">
                 <div class="col-12 col-md-4" >
                     <img class="cover-img" :src="event.coverImg" alt="">
                 </div>
@@ -23,7 +23,7 @@
                                 {{ event.description }}
                             </div>
                             <div class=" mt-5 col-12 col-md-3">
-                                <span v-if="event.isCanceled == false" class="text-info">{{ event.capacity }}</span> spots left
+                                <span v-if="event.isCanceled == false" class="text-class">{{ event.capacity }}</span> spots left
                             </div>
                             <!-- STUB If cancelled -->
                             <div  class=" mt-5 col-12 col-md-3">
@@ -32,13 +32,13 @@
                             <div class="mt-5 col-12 col-md-3">
                                 <!-- FIXME also need to consider a sold out scenario, compare capacity and ticket count -->
                                 <div v-if="event.isCanceled == false">
-                                        <button v-if="!isAttending && user.isAuthenticated" @click="createTicket">
+                                        <button class="button-class" v-if="!isAttending && user.isAuthenticated" @click="createTicket">
                                     Attend
                                         </button>
-                                        <button v-else-if="user.isAuthenticated" @click="returnTicket">
+                                        <button class="button-class" v-else-if="user.isAuthenticated" @click="returnTicket">
                                         return Ticket
                                          </button>
-                                        <button v-else  disabled>
+                                        <button class="button-class" v-else  disabled>
                                         Log in to get your ticket
                                         </button>
                                 
@@ -52,7 +52,7 @@
                                 
                             </div>
                             <div v-if="account.id == event.creatorId && event.isCanceled == false" class="mt-5 col-12 col-md-3">
-                                <button  @click.prevent="cancelEvent">
+                                <button class="delete-button"  @click.prevent="cancelEvent">
                                     Cancel Event
                                 </button>
                                 <button v-if="event.isCanceled == true" disabled>Cancel Event</button>
@@ -69,7 +69,7 @@
         </section>
 
         <!-- STUB See who is attending here -->
-        <section class="row card elevation-5 my-4">
+        <section class="row card elevation-5 my-4 background-color">
             <div class="col-12">
                 <h5>Peeps who are attending 🪅</h5>
                 <img class="profile-pic p-1" v-for="m in tickets" :key="m.id" :src="m.profile.picture" alt="" :title="m.profile.name">
@@ -184,6 +184,51 @@ export default {
 
 
 <style>
+
+.text-class{
+    color: #0add8f;
+}
+.background-color{
+    background: linear-gradient(25deg, #0add8f, #c4e8cb);
+
+}
+
+.delete-button{
+    display: inline-block;
+    padding: 10px 20px;
+    background: linear-gradient(25deg, #0add8f, #c4e8cb);
+    color: black;
+    font-size: 15px;
+    border: solid 2px aqua;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s, transform 0.2s;
+}
+
+.delete-button:hover{
+    background: linear-gradient(45deg, #f8bebe, #ff0000);
+    transform: translateY(-7px);
+
+}
+
+.button-class{
+    display: inline-block;
+    padding: 10px 20px;
+    background: linear-gradient(25deg, #0add8f, #c4e8cb);
+    color: black;
+    font-size: 15px;
+    border: solid 2px aqua;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s, transform 0.2s;
+}
+
+.button-class:hover{
+  background: linear-gradient(45deg, #c4e8cb, #0add8f);
+  transform: translateY(-7px);
+  }
 
 .profile-pic{
     width: 45px;

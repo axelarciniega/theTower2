@@ -6,11 +6,11 @@
                 <div class="m-1 col-12 col-md-1">
                     <img class="profile-pic" :src="eventComment.creator?.picture" alt="">
                 </div>
-                <div class="card elevation-5 col-12 col-md-6 my-2">
+                <div class="card elevation-5 col-12 col-md-6 my-2 background-color" >
                     <b> {{ eventComment.creator?.name }} </b>
                     <p>{{ eventComment.body }}</p>
                     <div v-if="account.id == eventComment.creatorId">
-                        <button @click="removeComments"  class="col-2">delete</button>
+                        <button @click="removeComments"  class="col-2 delete-button">delete</button>
                     </div>
                     <div v-else></div>
                 </div>
@@ -59,6 +59,25 @@ setup(props) {
 
 
 <style>
+
+.background-color{
+    background: linear-gradient(25deg, #0add8f, #c4e8cb);
+
+}
+
+.delete-button{
+    background: linear-gradient(25deg, #ff0000, #f8bebe);
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s, transform 0.2s;
+}
+
+.delete-button:hover{
+    background: linear-gradient(45deg, #f8bebe, #ff0000);
+    transform: translateY(-2px);
+}
 
 .profile-pic{
     width: 50px;

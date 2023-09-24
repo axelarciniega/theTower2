@@ -1,7 +1,7 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-black border px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <div class="d-flex flex-column align-items-center">
+      <div class="d-flex flex-column align-items-center text-white">
         THE T⭕WER
       </div>
     </router-link>
@@ -36,6 +36,10 @@ export default {
 <style scoped>
 a:hover {
   text-decoration: none;
+}
+
+.border{
+  border: 4px solid aqua;
 }
 
 .nav-link {

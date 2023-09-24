@@ -2,10 +2,10 @@
   <header>
     <Navbar />
   </header>
-  <main>
+  <main class="bg-black">
     <router-view />
   </main>
-   <footer class="bg-dark text-light">
+   <footer class="bg-black text-light border">
     Events going crazy!
   </footer>
 </template>
@@ -24,6 +24,7 @@ export default {
   components: { Navbar }
 }
 </script>
+
 <style lang="scss">
 @import "./assets/scss/main.scss";
 
@@ -36,5 +37,9 @@ footer {
   display: grid;
   place-content: center;
   height: 32px;
+}
+
+.border{
+  border: 4px solid aqua;
 }
 </style>
