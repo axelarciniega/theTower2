@@ -1,8 +1,24 @@
 <template>
-  <div class="about text-center">
-    <h1>Welcome {{ account.name }}</h1>
-    <img class="rounded" :src="account.picture" alt="" />
-    <p>{{ account.email }}</p>
+  <div class="container">
+
+    <div class="about text-center">
+      <h3>User: <span class="text-info">{{ account.name }}</span></h3>
+      <img class="rounded" :src="account.picture" alt="" />
+    </div>
+
+
+    <section class="row">
+     <!-- STUB Events that I have tickets for  -->
+        <h3>Event's I am going to🕶️</h3>
+      
+      <div v-for="t in myTickets" :key="t.id" class="col-12 col-md-2">
+        <EventCard :event="t.event"/>
+      </div>
+    </section>
+
+
+
+
   </div>
 </template>
 
