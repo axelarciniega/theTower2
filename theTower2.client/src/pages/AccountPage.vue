@@ -13,7 +13,7 @@ import Pop from '../utils/Pop';
 import { accountService } from '../services/AccountService';
 export default {
   setup() {
-    onMounted(()=> {
+    watchEffect(()=> {
       getMyTickets()
     })
 
@@ -25,7 +25,8 @@ export default {
       }
     }
     return {
-      account: computed(() => AppState.account)
+      account: computed(() => AppState.account),
+      myTickets: computed(() => AppState.myTickets)
     }
   }
 }

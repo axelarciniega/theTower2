@@ -1,4 +1,5 @@
 import { AppState } from "../AppState"
+import { Ticket } from "../models/Ticket"
 import { TowerEvent } from "../models/TowerEvent"
 
 import { logger } from "../utils/Logger"
@@ -33,6 +34,12 @@ class EventsService{
         const res = await api.delete(`api/events/${eventId}`)
         logger.log('deleting', res.data)
         AppState.activeEvent.isCanceled = true
+    }
+
+    async getMembersByEventId(eventId){
+        const res = await api.get(`api/events/${eventId}/tickets`)
+        logger.log('getting peeps that have tickets',res.data)
+        AppState.tickets = res.data
     }
 
 

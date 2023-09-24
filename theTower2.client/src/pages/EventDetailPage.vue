@@ -64,6 +64,16 @@
 
         </section>
 
+        <!-- STUB See who is attending here -->
+        <section class="row card elevation-5 my-4">
+            <div class="col-12">
+                <h5>Peeps who are attending 🪅</h5>
+                <img class="profile-pic p-1" v-for="m in tickets" :key="m.id" :src="m.profile.picture" alt="" :title="m.profile.name">
+            </div>
+        </section>
+
+
+
         <!-- STUB Comment section -->
         <section class="row">
             <CommentForm/>
@@ -94,6 +104,7 @@ export default {
         onMounted(() => {
             getEventById();
             getCommentByEvent();
+            getMembersByEventId();
         });
         const route = useRoute();
         
@@ -105,6 +116,15 @@ export default {
                 Pop.error(error);
             }
         }
+
+        async function getMembersByEventId(){
+            try {
+                await eventsService.getMembersByEventId(route.params.eventId)
+            } catch (error) {
+                Pop.error(error)
+            }
+        }
+
         async function getEventById() {
             try {
                 await eventsService.getEventById(route.params.eventId);
@@ -120,11 +140,10 @@ export default {
             account: computed(() => AppState.account),
             tickets: computed(() => AppState.tickets),
             eventComments: computed(() => AppState.eventComments),
+            member: computed(()=> AppState.myTickets),
             async createTicket() {
                 try {
-                    if (AppState.activeEvent.capacity == 0 || AppState.activeEvent.isCanceled == true) {
-                        Pop.toast('This event is not available', 'danger');
-                    }
+                    
                     let ticketData = { eventId: route.params.eventId };
                     await ticketsService.createTicket(ticketData);
                     AppState.activeEvent.capacity--;
@@ -163,6 +182,11 @@ export default {
 
 
 <style>
+
+.profile-pic{
+    width: 45px;
+    height: 45px;
+}
 
 .cover-img{
     object-fit: cover;

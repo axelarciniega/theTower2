@@ -18,8 +18,8 @@ class AccountService {
   async getMyTickets(){
     try {
       const res = await api.get('account/tickets')
-      logger.log('my', res.data)
-      AppState.myTickets = res.data.map(t => new Ticket(t))
+      logger.log('my ticket 👈', res.data)
+      AppState.myTickets = res.data
     } catch (error) {
       Pop.error(error)
     }

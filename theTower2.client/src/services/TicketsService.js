@@ -12,7 +12,9 @@ class TicketsService{
     async createTicket(data){
         const res = await api.post(`api/tickets`,data)
         logger.log('got ticket', res.data)
-        AppState.myTickets.push(new Ticket(res.data))
+        AppState.tickets.push(new Ticket(res.data))
+        
+        logger.log(AppState.myTickets, 'my tickets that I have')
 
     }
 

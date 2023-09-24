@@ -20,5 +20,8 @@ tickets: [],
 myTickets: [],
 
 /**@type {Comment[]} */
-eventComments: []
+eventComments: [],
+
+
 })
+
