@@ -7,7 +7,7 @@
                     <img class="profile-pic" :src="eventComment.creator?.picture" alt="">
                 </div>
                 <div class="card elevation-5 col-12 col-md-6 my-2">
-                    <b> {{ eventComment.creator?.name }}</b>
+                    <b> {{ eventComment.creator?.name }} </b>
                     <p>{{ eventComment.body }}</p>
                     <div v-if="account.id == eventComment.creatorId">
                         <button @click="removeComments"  class="col-2">delete</button>
@@ -36,6 +36,8 @@ setup(props) {
   return {
     account: computed(()=> AppState.account),
     user: computed(()=> AppState.user),
+    isAttending: computed(() => AppState.tickets.find(a => a.accountId == AppState.account.id)),
+
 
     async removeComments(){
         try {

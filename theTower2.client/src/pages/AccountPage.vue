@@ -7,7 +7,7 @@
     </div>
 
 
-    <section class="row">
+    <section v-if="myTickets" class="row">
      <!-- STUB Events that I have tickets for  -->
         <h3>Event's I am going to🕶️</h3>
       

@@ -11,7 +11,8 @@ class CommentsService{
     async createComment(commentData){
         const res = await api.post('api/comments', commentData)
         logger.log('creating comment', res.data)
-        AppState.eventComments = res.data
+        const newComment = new EventComment(res.data)
+        AppState.eventComments.push(newComment)
     }
     
 
@@ -25,7 +26,9 @@ class CommentsService{
     async removeComments(id){
         const res = await api.delete(`api/comments/${id}`)
         logger.log('deleting comment', res.data)
-        AppState.comments = AppState.eventComments.filter(com => com.id != id)
+       
+        let indexRemove = AppState.eventComments.findIndex(c => c.id == id)
+        AppState.eventComments.splice(indexRemove,1)
     }
 
    
