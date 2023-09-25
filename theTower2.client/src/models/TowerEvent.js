@@ -16,5 +16,6 @@ export class TowerEvent{
         this.ticketCount = data.ticketCount
         this.creator = data.creator
         this.startTime = new Date(data.startTime)
+        this.ticketCount = data.ticketCount
     }
 }

@@ -1,13 +1,13 @@
 <template>
   <div class="container">
 
-    <div class="about text-center">
-      <h3>User: <span class="text-info">{{ account.name }}</span></h3>
+    <div class="about text-center text-light">
+      <h3>User: {{ account.name }}</h3>
       <img class="rounded" :src="account.picture" alt="" />
     </div>
 
 
-    <section v-if="myTickets" class="row">
+    <section v-if="myTickets" class="row text-light">
      <!-- STUB Events that I have tickets for  -->
         <h3>Event's I am going to🕶️</h3>
       

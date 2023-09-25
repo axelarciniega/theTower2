@@ -16,10 +16,7 @@
    
 
 
-    <!-- STUB My Events -->
-    <section class="row">
-      <div></div>
-    </section>
+ 
 
 
 

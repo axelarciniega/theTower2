@@ -15,8 +15,7 @@ class TicketsService{
         logger.log('got ticket', res.data)
         AppState.tickets.push(new Ticket(res.data))
         logger.log(AppState.myTickets, 'my tickets that I have')
-        AppState.activeEvent.capacity--
-        AppState.activeEvent.isAttending == true
+        AppState.activeEvent.capacity-=1
 
     }
 
@@ -25,8 +24,7 @@ class TicketsService{
         logger.log('-ticket', res.data)
         let indexRemove = AppState.tickets.findIndex(t => t.id == ticketId)
         AppState.tickets.splice(indexRemove,1)
-        AppState.activeEvent.capacity++
-        AppState.activeEvent.isAttending == false
+        AppState.activeEvent.capacity+=1
     }
 
 

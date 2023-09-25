@@ -1,6 +1,5 @@
 <template>
     <router-link :to="{path: `events/${event.id}`}">
-        <section></section>
         <div v-if="event.isCanceled == false" class="selectable card elevation-5 background">
             <p class="text-center">{{ event.name }}</p>
             
@@ -11,6 +10,12 @@
             
             <img class="cover-image" :src="event.coverImg" alt="">
         </div>
+        <div v-if="event.capacity == 0" class="selectable card elevation-5 canceled-background my-3">
+            <p class="text-center">Sold out</p>
+            
+            <img class="cover-image" :src="event.coverImg" alt="">
+        </div>
+        
     </router-link>
 
 </template>

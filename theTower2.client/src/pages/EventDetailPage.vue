@@ -30,24 +30,20 @@
                                <p v-if="event.isCanceled == true">Event is canceled</p>
                             </div>
                             <div class="mt-5 col-12 col-md-3">
-                                <!-- FIXME also need to consider a sold out scenario, compare capacity and ticket count -->
                                 <div v-if="event.isCanceled == false">
                                         <button class="button-class" v-if="!isAttending && user.isAuthenticated" @click="createTicket">
                                     Attend
                                         </button>
-                                        <button class="button-class" v-else-if="user.isAuthenticated" @click="returnTicket">
+                                        <button class="button-class" v-else-if="user.isAuthenticated && event.capacity >= 1" @click="returnTicket">
                                         return Ticket
                                          </button>
-                                        <button class="button-class" v-else  disabled>
+                                         <button v-if="event.capacity == 0">Sold out</button>
+                                        <!-- <button class="button-class" v-else  disabled>
                                         Log in to get your ticket
-                                        </button>
+                                        </button> -->
                                 
                                 </div>
-                                <div v-else-if="event.capacity == 0">
-                                    <div>
-                                        <b>Sold out</b>
-                                    </div>
-                                </div>
+                                
                                 
                                 
                             </div>
@@ -96,7 +92,7 @@
 import { useRoute } from 'vue-router';
 import { eventsService } from '../services/EventsService';
 import Pop from '../utils/Pop';
-import { Comment, computed, onMounted, ref } from 'vue';
+import { Comment, computed, onMounted, ref, watchEffect } from 'vue';
 import { AppState } from '../AppState';
 import { ticketsService } from '../services/TicketsService';
 import { commentsService } from '../services/CommentsService';
@@ -105,12 +101,12 @@ import { commentsService } from '../services/CommentsService';
 
 export default {
     setup() {
-        onMounted(() => {
+        const route = useRoute();
+        watchEffect(() => {
             getEventById();
             getCommentByEvent();
             getMembersByEventId();
         });
-        const route = useRoute();
         
         async function getCommentByEvent() {
             try {

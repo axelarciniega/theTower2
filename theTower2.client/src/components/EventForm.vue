@@ -1,6 +1,6 @@
 <template>
     <p>
-  <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+  <button class="button-filter my-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
     Create Event
   </button>
 </p>
@@ -12,7 +12,7 @@
 
        
         <div class="col-12 col-md-5 my-3">
-            <input v-model="eventData.name" type="text" placeholder="name" class="form-control" required>
+            <input v-model="eventData.name" maxlength="40" type="text" placeholder="name" class="form-control" required>
         </div>
         <div class="col-12 col-md-5 my-3">
             <input v-model="eventData.coverImg" type="url" placeholder="Image URl" class="form-control" required>
@@ -21,7 +21,7 @@
             <input v-model="eventData.capacity" type="number" placeholder="capacity" class="form-control" required>
         </div>
          <div class="col-12 col-md-5">
-            <input v-model="eventData.location" type="text" placeholder="location" class="form-control" required>
+            <input v-model="eventData.location" maxlength="30" type="text" placeholder="location" class="form-control" required>
         </div>
          <div class="col-12 col-md-4 my-3">
             <input v-model="eventData.startDate" type="date" placeholder="start date" class="form-control" required>
@@ -39,7 +39,7 @@
          </section>
          <div class="mb-3">
   <label for="Textarea1" class="form-label">Description</label>
-  <textarea v-model="eventData.description" class="form-control" id="Textarea1" rows="3"></textarea>
+  <textarea maxlength="400" v-model="eventData.description" class="form-control" id="Textarea1" rows="3"></textarea>
 </div>
 <div class="col-12 text-end">
     <button class="">Submit</button>
@@ -88,4 +88,23 @@ setup() {
 
 
 <style>
+
+ .button-filter{
+  display: inline-block;
+  padding: 10px 20px;
+  background: linear-gradient(25deg, #00c4ff, #4800ff);
+  color: white;
+  font-size: 15px;
+  border: solid 2px aqua;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s, transform 0.2s;
+  }
+
+  .button-filter:hover{
+  background: linear-gradient(45deg, #4800ff, #00c4ff);
+  transform: translateY(-2px);
+  }
+
 </style>
