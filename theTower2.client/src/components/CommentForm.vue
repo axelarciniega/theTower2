@@ -60,6 +60,7 @@ setup() {
         try {
             comment.value.eventId = route.params.eventId
         await commentsService.createComment(comment.value)
+        Pop.success('Posted Comment')
         resetForm()
         } catch (error) {
             Pop.error(error)
