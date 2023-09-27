@@ -23,7 +23,7 @@
                                 {{ event.description }}
                             </div>
                             <div class=" mt-5 col-12 col-md-3">
-                                <span v-if="event.isCanceled == false" class="text-class">{{ event.capacity }}</span> spots left
+                                <span v-if="event.isCanceled == false" class="text-class">{{ event.capacity-event.ticketCount }}</span> spots left
                             </div>
                             <!-- STUB If cancelled -->
                             <div  class=" mt-5 col-12 col-md-3">

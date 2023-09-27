@@ -31,7 +31,7 @@ class EventsService{
         if(originalEvent.isCanceled == true){
             throw new BadRequest('Sorry this event is already canceled')
         }
-        if(originalEvent.creatorId != originalEvent.creatorId) throw new BadRequest('Not going to happen!')
+        if(originalEvent.creatorId != userId) throw new BadRequest('Not going to happen!')
 
         originalEvent.name = updates.name || originalEvent.name
         originalEvent.description = updates.description || originalEvent.description

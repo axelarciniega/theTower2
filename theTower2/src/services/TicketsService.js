@@ -34,8 +34,8 @@ class TicketsService{
             throw new Forbidden('Not yours!')
           }
 
-          event.capacity++
-          await event.save()
+        //   event.capacity++
+        //   await event.save()
           await ticket.remove()
 
           
