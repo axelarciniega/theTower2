@@ -2,11 +2,11 @@
 {
   "folders": [
     {
-      "path": "theTower2.client",
+      "path": "client",
       "name": "client"
     },
     {
-      "path": "theTower2",
+      "path": "server",
       "name": "server"
     }
   ],
